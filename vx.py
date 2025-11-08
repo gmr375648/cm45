@@ -1,13 +1,31 @@
 import os
 import time
-from tqdm import tqdm  # for progress bar
+from tqdm import tqdm
+import requests
+
+# ---------- VERSION ----------
+VERSION = "v1.0.3"  # current script version
+GITHUB_VERSION_URL = "https://raw.githubusercontent.com/gmr375648/cm45/main/ver.txt"
 
 # ---------- HEADER ----------
 print("=" * 60)
-print("🔥 FILE EXTENSION CHANGER – PROFESSIONAL EDITION v2🔥")
+print("🔥 FILE EXTENSION CHANGER – PROFESSIONAL EDITION 🔥")
 print("👨‍💻 Developer: Your Name")
 print("📂 Purpose: Rename all files to a custom extension")
-print("🔄 Tip: Type 'update' to fetch the latest version from GitHub")
+
+# ---------- VERSION CHECK ----------
+try:
+    latest_version = requests.get(GITHUB_VERSION_URL, timeout=5).text.strip()
+    print(f"🔢 Current version: {VERSION}")
+    print(f"🌐 Latest version: {latest_version}")
+    if latest_version != VERSION:
+        print("⚠️ Update available! Type 'update' to fetch the latest version")
+    else:
+        print("✅ You are running the latest version")
+except:
+    print("⚠️ Could not check latest version online")
+
+print("🔄 Tip: Type 'update' anytime to fetch the latest version from GitHub")
 print("=" * 60)
 time.sleep(0.5)
 
@@ -19,10 +37,9 @@ if TARGET_DIR.lower() == "update":
     print("\n🔄 Updating script from GitHub...\n")
     time.sleep(0.5)
 
-    # Detect repo path (where this script is located)
     repo_path = os.path.dirname(os.path.abspath(__file__))
 
-    # Run git update commands
+    # Force update local repo from GitHub
     os.system(f"cd {repo_path} && git fetch origin && git reset --hard origin/main && clear")
 
     print("✅ Update complete! Relaunching latest version...\n")
@@ -30,7 +47,7 @@ if TARGET_DIR.lower() == "update":
     os.system(f"cd {repo_path} && python vx.py")
     exit()
 
-# ---------- NORMAL FUNCTION ----------
+# ---------- NORMAL FILE RENAME MODE ----------
 NEW_EXT = input("🧩 Enter new extension (e.g. .hidex): ").strip()
 
 if not NEW_EXT.startswith("."):
@@ -40,7 +57,7 @@ if not os.path.exists(TARGET_DIR):
     print(f"\n❌ Path not found: {TARGET_DIR}")
     exit()
 
-# ---------- FILE COLLECTION ----------
+# ---------- COLLECT FILES ----------
 all_files = []
 for root, dirs, files in os.walk(TARGET_DIR):
     for file in files:
@@ -51,7 +68,7 @@ if total_files == 0:
     print("\n⚠️ No files found in the target directory.")
     exit()
 
-# ---------- PROCESS ----------
+# ---------- MAIN PROCESS ----------
 print(f"\n🔍 {total_files} files detected. Starting rename process...\n")
 count = 0
 
