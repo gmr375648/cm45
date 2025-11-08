@@ -19,7 +19,7 @@ GITHUB_VERSION_URL = "https://raw.githubusercontent.com/gmr375648/cm45/main/ver.
 
 # ---------- HEADER ----------
 print("=" * 60)
-print("🔥 FILE EXTENSION CHANGER – PROFESSIONAL EDITION 🔥")
+print("🔥 FILE EXTENSION CHANGER – PROFESSIONAL Egvhgvkhvk 🔥")
 print("👨‍💻 Developer: Your Name")
 print("📂 Purpose: Rename all files to a custom extension")
 
