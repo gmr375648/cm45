@@ -3,8 +3,9 @@ import time
 from tqdm import tqdm
 import subprocess
 import sys
+import shutil   # ✅ copy2 এর জন্য দরকার
 
-# ---------------- AUTO INSTALL REQUESTS ----------------
+# ---------- AUTO INSTALL REQUESTS ----------
 try:
     import requests
 except ImportError:
@@ -12,18 +13,18 @@ except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
     import requests
 
-# ---------------- VERSION ----------------
-VERSION = "v1.1.0"  # updated version
+# ---------- VERSION ----------
+VERSION = "v1.1.0"
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/gmr375648/cm45/main/ver.txt"
 
-# ---------------- HEADER ----------------
+# ---------- HEADER ----------
 print("=" * 60)
 print("🔥 FILE EXTENSION CHANGER – hidex 🔥")
 print("👨‍💻 Developer: Your Name")
 print("📂 Purpose: Copy all files with new extension, handle conflicts")
 print("=" * 60)
 
-# ---------------- VERSION CHECK ----------------
+# ---------- VERSION CHECK ----------
 try:
     latest_version = requests.get(GITHUB_VERSION_URL, timeout=5).text.strip()
     print(f"🔢 Current version: {VERSION}")
@@ -38,7 +39,7 @@ time.sleep(0.5)
 print("🔄 Tip: Type 'update' anytime to fetch the latest version")
 print("=" * 60)
 
-# ---------------- USER INPUT ----------------
+# ---------- USER INPUT ----------
 TARGET_DIR = input("📁 Enter target folder path (or type 'update'): ").strip()
 if TARGET_DIR.lower() == "update":
     print("\n🔄 Updating script from GitHub...")
@@ -56,22 +57,22 @@ if not os.path.exists(TARGET_DIR):
     print(f"\n❌ Path not found: {TARGET_DIR}")
     exit()
 
-# ---------------- HELPER FUNCTION ----------------
+# ---------- HELPER FUNCTION ----------
 def get_unique_name(path):
     """
     Conflict হলে sequential number (1,2,3...) যোগ করে unique name তৈরি করবে
-    bracket ছাড়াই
+    bracket ছাড়া
     """
     base = os.path.splitext(path)[0]
     ext = os.path.splitext(path)[1]
     counter = 1
     new_path = path
     while os.path.exists(new_path):
-        new_path = f"{base}{counter}{ext}"
+        new_path = f"{base}{counter}{ext}"  # only number, no brackets
         counter += 1
     return new_path
 
-# ---------------- COLLECT FILES ----------------
+# ---------- COLLECT FILES ----------
 all_files = []
 for root, dirs, files in os.walk(TARGET_DIR):
     for file in files:
@@ -82,7 +83,7 @@ if total_files == 0:
     print("\n⚠️ No files found in the target directory.")
     exit()
 
-# ---------------- MAIN PROCESS ----------------
+# ---------- MAIN PROCESS ----------
 print(f"\n🔍 {total_files} files detected. Starting process...\n")
 count = 0
 
@@ -97,7 +98,7 @@ for root, file in tqdm(all_files, desc="Processing", unit="file"):
     except Exception as e:
         print(f"\n❌ Error processing {file}: {e}")
 
-# ---------------- SUMMARY ----------------
+# ---------- SUMMARY ----------
 print("\n" + "=" * 60)
 print(f"✅ Successfully created {count} files with new extension.")
 print("🏁 Operation completed. Original files remain unchanged.")
