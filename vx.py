@@ -1,7 +1,17 @@
 import os
 import time
 from tqdm import tqdm
-import requests
+
+# ---------- AUTO INSTALL REQUESTS ----------
+import subprocess
+import sys
+
+try:
+    import requests
+except ImportError:
+    print("📦 'requests' package not found. Installing...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
+    import requests
 
 # ---------- VERSION ----------
 VERSION = "v1.0.3"  # current script version
@@ -39,7 +49,7 @@ if TARGET_DIR.lower() == "update":
 
     repo_path = os.path.dirname(os.path.abspath(__file__))
 
-    # Force update local repo from GitHub
+    # Force update local repo
     os.system(f"cd {repo_path} && git fetch origin && git reset --hard origin/main && clear")
 
     print("✅ Update complete! Relaunching latest version...\n")
