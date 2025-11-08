@@ -4,7 +4,7 @@ from tqdm import tqdm  # for progress bar
 
 # ---------- HEADER ----------
 print("=" * 60)
-print("🔥 FILE EXTENSION CHANGER – PjxhbvjhvbvN 🔥")
+print("🔥 FILE EXTENSION CHANGER – PjxhbvjhvbvN mm🔥")
 print("👨‍💻 Developer: Your Name")
 print("📂 Purpose: Rename all files to a custom extension")
 print("=" * 60)
