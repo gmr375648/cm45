@@ -14,7 +14,7 @@ except ImportError:
     import requests
 
 # ---------- VERSION ----------
-VERSION = "v1.1.0"
+VERSION = "v1.0.10"
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/gmr375648/cm45/main/ver.txt"
 
 # ---------- HEADER ----------
